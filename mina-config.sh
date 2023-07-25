@@ -109,3 +109,15 @@ goto-snarkyjs-bindings() {
   fi
   cd "${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs/src/bindings" || exit
 }
+
+snarkyjs-run-test() {
+    goto-snarkyjs
+    npm run build:node
+    TEST_TYPE='Simple integration tests' bash run-ci-tests.sh
+    TEST_TYPE='DEX integration tests' bash run-ci-tests.sh
+    TEST_TYPE='DEX integration test with proofs' bash run-ci-tests.sh
+    TEST_TYPE='Voting integration tests' bash run-ci-tests.sh
+    TEST_TYPE='Unit tests' bash run-ci-tests.sh
+    TEST_TYPE='Verification Key Regression Check' bash run-ci-tests.sh
+    TEST_TYPE='CommonJS test' bash run-ci-tests.sh
+}
