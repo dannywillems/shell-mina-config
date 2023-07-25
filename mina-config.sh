@@ -7,7 +7,7 @@ mina-grep() {
 }
 
 mina-c-m-develop() {
-    git merge-tree `git merge-base origin/develop HEAD` HEAD origin/develop | grep -A 25 "^+<<<<<<<"
+    git merge-tree "$(git merge-base origin/develop HEAD)" HEAD origin/develop | grep -A 25 "^+<<<<<<<"
 }
 
 mina-env() {
