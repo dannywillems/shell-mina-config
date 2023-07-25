@@ -13,7 +13,7 @@ mina-c-m-develop() {
 mina-env() {
   if [ ${MINA_ENV_SETUP} -ne 1 ]
   then
-    eval $(opam env)
+    eval "$(opam env)"
     gvm use go1.18.10
     nvm use v19.3.0
     export MINA_BUILD_DIR=${OPAM_SWITCH_PREFIX}/../_build
@@ -26,9 +26,9 @@ mina-drl() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/..
+  cd "${OPAM_SWITCH_PREFIX}/.." || exit
   dune runtest src/lib
-  cd -
+  cd - || exit
 }
 
 mina-build() {
@@ -36,9 +36,9 @@ mina-build() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/..
+  cd "${OPAM_SWITCH_PREFIX}/.." || exit
   make build
-  cd -
+  cd - || exi
 }
 
 ## Build specific libraries
@@ -47,9 +47,9 @@ snarky-build() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/snarky
+  cd "${OPAM_SWITCH_PREFIX}/.." || exit
   dune build
-  cd -
+  cd - || exit
 }
 
 snarkyjs-bindings-build() {
@@ -57,9 +57,9 @@ snarkyjs-bindings-build() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs/src/bindings
+  cd "${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs/src/bindings" || exit
   npm run bindings
-  cd -
+  cd - || exit
 }
 
 ## Build specific libraries documentation
@@ -68,9 +68,9 @@ snarky-doc() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/snarky
+  cd "${OPAM_SWITCH_PREFIX}/../src/lib/snarky" || exit
   dune build @doc
-  cd -
+  cd - || exit
 }
 
 # Aliases to travel to different projects
@@ -80,7 +80,7 @@ goto-proof-systems() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/crypto/proof-systems
+  cd "${OPAM_SWITCH_PREFIX}/../src/lib/crypto/proof-systems" || exit
 }
 
 ## snarky
@@ -89,7 +89,7 @@ goto-snarky() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/snarky
+  cd "${OPAM_SWITCH_PREFIX}/../src/lib/snarky" || exit
 }
 
 ## snarkyjs
@@ -98,7 +98,7 @@ goto-snarkyjs() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs
+  cd "${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs" || exit
 }
 
 ## snarkyjs
@@ -107,5 +107,5 @@ goto-snarkyjs-bindings() {
   then
     mina-env
   fi
-  cd ${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs/src/bindings
+  cd "${OPAM_SWITCH_PREFIX}/../src/lib/snarkyjs/src/bindings" || exit
 }
